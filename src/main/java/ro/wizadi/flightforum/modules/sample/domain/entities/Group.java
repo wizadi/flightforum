@@ -1,15 +1,20 @@
 package ro.wizadi.flightforum.modules.sample.domain.entities;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import ro.wizadi.flightforum.modules.common.domain.entities.Auditable;
+
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity(name = "groups")
-public class Group {
+public class Group extends Auditable<String> {
 
     private Long id;
     private String name;
     private String slug;
+
 
     @Id
     @GeneratedValue
@@ -35,5 +40,19 @@ public class Group {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Group{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", slug='" + slug + '\'' +
+                ", createdBy=" + createdBy +
+                ", updatedBy=" + updatedBy +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }

@@ -12,4 +12,5 @@ public interface GroupService {
 
     Page<Group> getGroups(@Size(min = 4)String name, String slug, Pageable pageable);
 
+    Group create(String name, String slug);
 }

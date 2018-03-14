@@ -2,8 +2,11 @@ package ro.wizadi.flightforum.container.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -15,12 +18,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import ro.wizadi.flightforum.container.configuration.localisation.AcceptHeaderTzResolver;
+import ro.wizadi.flightforum.modules.common.audit.AuditorAwareImpl;
 import ro.wizadi.flightforum.modules.common.interceptors.MyInterceptor;
 
 import java.util.Locale;
 
 @Configuration
 @EnableAsync
+@EnableAspectJAutoProxy
+@EnableJpaAuditing(auditorAwareRef = "auditorAware")
 public class WebApplicationConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -82,5 +88,10 @@ public class WebApplicationConfig extends WebMvcConfigurerAdapter {
         executor.initialize();
 
         return executor;
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return new AuditorAwareImpl();
     }
 }

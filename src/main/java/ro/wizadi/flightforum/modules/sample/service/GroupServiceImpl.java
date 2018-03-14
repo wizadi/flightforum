@@ -24,4 +24,21 @@ public class GroupServiceImpl implements GroupService {
     public Page<Group> getGroups(String name, String slug, Pageable pageable) {
         return groupRepository.findByNameAndSlug(name, slug, pageable);
     }
+
+    public Group findOne(Long id)
+    {
+        return  groupRepository.findOne(id);
+    }
+
+    public Group findByName(String name) {
+        return groupRepository.findByName(name);
+    }
+
+    public Group create(String name, String slug) {
+        Group group = new Group();
+        group.setName(name);
+        group.setSlug(slug);
+
+        return groupRepository.save(group);
+    }
 }

@@ -37,6 +37,11 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!-- this should be a fallback and we should do a mailgun integration -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
